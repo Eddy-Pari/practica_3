@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Editar Inscrito</h2>
+<form action="{{ url_for('editar', id=inscrito.id) }}" method="POST">
+    <label for="fecha">Fecha:</label>
+    <input type="date" name="fecha" value="{{ inscrito.fecha }}" required>
+    
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" value="{{ inscrito.nombre }}" required>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" name="apellido" value="{{ inscrito.apellido }}" required>
+
+    <label for="turno">Turno:</label>
+    <select name="turno" required>
+        <option value="Mañana" {% if inscrito.turno == "Mañana" %}selected{% endif %}>Mañana</option>
+        <option value="Tarde" {% if inscrito.turno == "Tarde" %}selected{% endif %}>Tarde</option>
+        <option value="Noche" {% if inscrito.turno == "Noche" %}selected{% endif %}>Noche</option>
+    </select>
+
+    <label for="seminarios">Seminarios disponibles:</label>
+    <select name="seminarios" multiple required>
+        {% for seminario in seminarios %}
+        <option value="{{ seminario }}" {% if seminario in inscrito.seminarios %}selected{% endif %}>{{ seminario }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Guardar cambios</button>
+</form>
+<a href="{{ url_for('lista') }}">Volver a la lista</a>
+{% endblock %}

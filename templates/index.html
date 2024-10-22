@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Registro de Seminarios</h2>
+<form action="/" method="POST">
+    <label for="fecha">Fecha:</label>
+    <input type="date" name="fecha" required>
+    
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" required>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" name="apellido" required>
+
+    <label for="turno">Turno:</label>
+    <select name="turno" required>
+        <option value="Mañana">Mañana</option>
+        <option value="Tarde">Tarde</option>
+        <option value="Noche">Noche</option>
+    </select>
+
+    <label for="seminarios">Seminarios disponibles:</label>
+    <select name="seminarios" multiple required>
+        {% for seminario in seminarios %}
+        <option value="{{ seminario }}">{{ seminario }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Enviar registro</button>
+</form>
+<a href="{{ url_for('lista') }}">Ver lista de inscritos</a>
+{% endblock %}
